@@ -1,14 +1,8 @@
-<!--  index.html  --> 
+<!--  contact.html  --> 
+{% {% extends "base.html" %}%}
 
-<html>
-    <head>
-        <title>My First Django Site</title>
-    </head>
-    <body>
-        <h1>Hello, welcome to <i>my</i> world</h1>
-        <p>This is the Contact me page</P>
-        <a href="/">Index page</a>
-    </body>
+{% block title %}About{% endblock %}
 
-</html>
-
+{% block content%}
+    <h1> contact us Page</h1>
+{% endblock%}

@@ -1,15 +1,9 @@
 <!--  not_found.html  --> 
 
-<html>
-    <head>
-        <title>My First Django Site</title>
-    </head>
-    <body>
-        <h1>Hello, welcome to <i>my</i> world</h1>
-        <p></p>
-        <p></p>
-        <p>{{error}}</p>
-    </body>
+{% extends "base.html" %}
 
-</html>
+{% block title %}Not Found{% endblock %}
 
+{% block content %}
+    <p>{{error}}</p>
+{% endblock %}
