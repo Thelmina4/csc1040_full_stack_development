@@ -5,6 +5,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.index, name="index"),
-    path('contact/', views.contact, name="contact")
+    path('index/', views.index, name="index"),    # homepage ofr 0.0.0.0:0000
+    path('contact/', views.contact, name="contact"),
+    # path('about/', views.about, name="about"),
+    path("profile/<int:id>/", views.profile, name="profile"), # profile/1), profile/2
 ]
