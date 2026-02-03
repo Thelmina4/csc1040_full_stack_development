@@ -1,0 +1,26 @@
+<!--  not_found.html  --> 
+{% comment %} the next line takes everything from base.html
+and brings is to this page. - added a footer to conf theory {% endcomment %}
+{% extends "base.html" %} 
+
+{% block title %}All Books{% endblock %}
+
+{% block content %}
+    <ul>
+        {% comment %} note the use of python in the next line
+        for book in books
+         {% endcomment %}
+        {% for book in books %}
+
+            <li>
+                <a href="{% url 'book_detail' book.id %}">{{ book.title }}</a>
+                 by 
+                 <a href="{% url 'author_detail' book.author.id %}">{{ book.author.name }}</a>
+            </li>
+            
+        {% comment %} end of for loop {% endcomment %}
+        {% endfor %}
+        </ul>
+
+   {% comment %} go to 127.0.0.0:8000/books/ {% endcomment %}
+{% endblock %}

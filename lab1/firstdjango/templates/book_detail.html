@@ -1,0 +1,21 @@
+<!--  not_found.html  --> 
+
+{% extends "base.html" %}
+
+{% block title %}book details{% endblock %}
+
+{% block content %}
+
+    <p>
+        {% comment %} look at models.py
+        then look at Book, go down to author and follow that up
+        to Authors.name.
+        This is how the data bases are linked {% endcomment %}
+        Title: {{ book.title }}
+        Author: {{book.author.name}}
+        Genre: {{book.genre}}
+        Number of pages {{book.num_pages}}
+        published {{book.published_date}}
+    </p>
+
+{% endblock %}

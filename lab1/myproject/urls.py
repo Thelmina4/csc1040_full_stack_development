@@ -23,4 +23,5 @@ urlpatterns = [
     path('', include('firstdjango.urls')), # I called mine "firstdjango"
     # pages would be a better name instead of firstdjango
     path('admin/', admin.site.urls),
+    path("accounts/", include("django.contrib.auth.urls"))
 ]

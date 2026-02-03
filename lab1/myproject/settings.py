@@ -118,11 +118,13 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-# Added the line below from here to 
+# Added the line below from here to confirmed update on 02.02.2026
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# end of the added lines here
+# for the login page - where do you want to bring them?
+# / brings them tp the home page
+LOGIN_REDIRECT_URL = "/"

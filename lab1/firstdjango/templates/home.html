@@ -4,7 +4,13 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-    <p>Hello {{ username }}</p>
+
+{% if user.is_authenticated %}
+    <p>Hello {{ user.username }}</p>
+{% else %}
+    <p>Oh you're not logged in</p>
+    {% endif %}
+    
     <a href="/about">About me</a>
     <ol>
         {% for i in nums %}

@@ -1,0 +1,12 @@
+<!--  author_detail.html  --> 
+ {% extends "base.html" %}
+
+{% block title %}About the author{% endblock %}
+
+{% block content%}
+    <h1>About the Author Page</h1>
+    <p>
+        Name: {{ author.name }}
+        Date of Birth: {{ author.date_of_birth }}
+    </p>
+{% endblock%}
