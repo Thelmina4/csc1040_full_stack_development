@@ -6,5 +6,5 @@ urlpatterns = [
     # the path will not work if not listed in pagess/views.py
     path('', views.home, name='home'),
     path('about/', views.about, name='about'),
-    path('contact', views.contact , name='contact')
+    # path('contact', views.contact , name='contact'),
 ]

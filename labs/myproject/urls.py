@@ -28,6 +28,6 @@ urlpatterns = [
     # /products/ and /products/123/ are handled by the products app
     # /cart/ and /cart/checkout/ are handled by the cart app
     path('', include('pages.urls')),                # pages at root
-    path('products/', include('products.urls')),    # products at /products/
-    path('cart/', include('cart.urls')),            # cart at /cart/
+    # path('products/', include('products.urls')),    # products at /products/
+    # path('cart/', include('cart.urls')),            # cart at /cart/
 ]
