@@ -1,0 +1,24 @@
+<!-- pages/templates/add_book.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Add a New Book</h1>
+
+<form method="post">
+    {% comment %} 
+    This tells the browser to send a POST request when the form is submitted. 
+    If you forget this, the browser defaults to GET, 
+    and your view will never see the submitted data in request.POST. 
+    {% endcomment %}
+    {% csrf_token %}
+    {% comment %} {% csrf_token %} - 
+    This is a security requirement. CSRF stands for Cross-Site Request Forgery - 
+    a type of attack where a malicious website tricks a user's browser into submitting a form to your site.  
+    {% endcomment %}
+    {{ form.as_p }}
+    {% comment %} This is where our BookForm class pays off.
+     Django renders all the form fields as HTML, each wrapped in a <p> tag. 
+     It generates the labels, the input fields, and ( {% endcomment %}
+    <button type="submit">Add Book</button>
+</form>
+{% endblock %}

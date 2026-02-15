@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+import os # for static 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -118,4 +119,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'pages', 'static'),
+]
+
 STATIC_URL = 'static/'
+
+# https://www.computing.dcu.ie/~mscriney/csc1040/lectures/week3/2-authentication/
+# myproject/settings.py
+# After a successful login, redirect to the URL named book_list
+LOGIN_REDIRECT_URL = 'book_list'
+
+LOGOUT_REDIRECT_URL = 'book_list'
+
+# myproject/settings.py
+LOGIN_URL = 'login'

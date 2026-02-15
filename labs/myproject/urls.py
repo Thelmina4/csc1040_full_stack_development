@@ -30,4 +30,7 @@ urlpatterns = [
     path('', include('pages.urls')),                # pages at root
     # path('products/', include('products.urls')),    # products at /products/
     # path('cart/', include('cart.urls')),            # cart at /cart/
+
+    # create a login for users
+    path('accounts/', include('django.contrib.auth.urls')),
 ]

@@ -1,0 +1,20 @@
+<!-- pages/templates/book_list.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+    <h1>About Us</h1>
+    <a href="/">Back to Home</a>
+    {% for book in books %}
+        <li>
+            <a href="/books/{{ book.id }}/">{{ book.title }}</a>
+            ({{ book.year_published }})
+        </li>
+    {% empty %}
+        <li>No books found.</li>
+    {% endfor %}
+{% endblock %}
+
+    
