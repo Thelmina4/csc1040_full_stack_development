@@ -1,0 +1,17 @@
+GET -- FOR RETRIEC=ING DATA
+POST - UPOAD & CREATING DAATA
+PATCH - UPDATE SPECIFIC FIELDS
+PUT - UPDATA AN ENTIRE RESOURCE (IN THIS CASE BOOK OR AUTHOR)
+DELETE - REMOVE RESOURCE (IN THIS CASE BOOK OR AUTHOR)
+
+REST is meant to be stateless. 
+
+GET /books -> return list of all books
+POST /books -> creating a new books
+GET /books/1 -> return book w id 1
+PATCH /books/1 -> update some fiend for book w id 1
+DELETE /books/1 -> delete book w the id 1
+
+RESTFUL, there is a standard patern ot rest api. and just chaanging the verbs (GET< POST, etc)
+
+GET /pokemon/151 -> Mew

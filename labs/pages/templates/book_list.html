@@ -15,6 +15,11 @@
     {% empty %}
         <li>No books found.</li>
     {% endfor %}
+    <!-- In base.html or book_list.html -->
+     {% comment %} to add a book? {% endcomment %}
+    {% if user.is_staff %}
+        <a href="{% url 'add_book' %}">Add a New Book</a>
+    {% endif %}
 {% endblock %}
 
     

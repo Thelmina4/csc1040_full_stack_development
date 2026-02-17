@@ -1,0 +1,126 @@
+# openapi.yaml
+
+# openapi.yaml
+openapi: 3.0.3
+info:
+  title: Numbers API
+  description: A simple API for working with numbers
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080
+    description: Local development server
+
+paths:
+  /add:
+    post:
+      summary: Add two numbers
+      description: Accepts two numbers and returns their sum
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - a
+                - b
+              properties:
+                a:
+                  type: number
+                  description: The first number
+                  example: 5
+                b:
+                  type: number
+                  description: The second number
+                  example: 3
+      responses:
+        '200':
+          description: Successful addition
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: number
+                    description: The sum of a and b
+                    example: 8
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message
+                    example: "Missing required field: a"
+
+  /numbers:
+    get:
+      summary: Get all numbers
+      description: Returns the current list of stored numbers
+      responses:
+        '200':
+          description: List of numbers
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  numbers:
+                    type: array
+                    items:
+                      type: number
+                    description: The list of stored numbers
+                    example: [1, 5, 10, 3.14]
+                  count:
+                    type: integer
+                    description: How many numbers are in the list
+                    example: 4
+
+    post:
+      summary: Add a number to the list
+      description: Adds a new number to the stored list
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - number
+              properties:
+                number:
+                  type: number
+                  description: The number to add
+                  example: 42
+      responses:
+        '201':
+          description: Number added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Number added successfully"
+                  numbers:
+                    type: array
+                    items:
+                      type: number
+                    description: The updated list of numbers
+                    example: [1, 5, 10, 3.14, 42]
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Missing required field: number"

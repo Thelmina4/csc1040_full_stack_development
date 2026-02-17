@@ -1,0 +1,31 @@
+<!-- index.html -->
+
+<html>
+    <head>
+        <title>Loading JS form a file</title>
+        <!-- External libraries should be loaded first (in the <head>),
+            so that your own code can use them.  -->
+
+        <!-- external js-->
+        <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+        <!-- internal js -->
+        <script src="sayhello.js"></script>
+    </head>
+    <body>
+        <!-- Web page goes here -->
+         <h2>welcome to the Jungle</h2>
+         <!-- Page-specific inline scripts go at the bottom of the <body>, 
+            after all the HTML content has loaded. -->
+                 <p>This page contains broken JavaScript which can only be seen in the console</p>
+        <script>
+            function sayHello() {
+                console.log("Hello");
+            }
+
+            sayHello(); // Bug! JavaScript is case-sensitive: sayhello ≠ sayHello
+        </script>
+         <script>
+            // [ page secific JS here ]
+         </script>
+    </body>
+</html>

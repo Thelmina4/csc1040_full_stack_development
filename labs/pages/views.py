@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponseForbidden
+
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 from .models import Book, Author
 from .forms import BookForm
@@ -82,9 +84,21 @@ def book_list(request):
     books = Book.objects.all()  # Get ALL books from the database
     return render(request, 'book_list.html', {'books': books})
 
+# def book_detail(request, book_id):
+#     book = get_object_or_404(Book, id=book_id)
+#     return render(request, 'book_detail.html', {'book': book})
+
 def book_detail(request, book_id):
-    book = get_object_or_404(Book, id=book_id)
-    return render(request, 'book_detail.html', {'book': book})
+    book = get_object_or_404(Book, pk=book_id)
+
+    can_edit = request.user.has_perm('pages.change_book')
+    can_delete = request.user.has_perm('pages.delete_book')
+
+    return render(request, 'book_detail.html', {
+        'book': book,
+        'can_edit': can_edit,
+        'can_delete': can_delete,
+    })
 
 def book_search(request):
     query = request.GET.get('q', '')  # Get the 'q' parameter, default to empty string
@@ -119,13 +133,43 @@ def books_by_cat_and_year(request, cat_id, year):
     # Reusing existing list template (DRY Principle)
     return render(request, 'book_list.html', context)
 
+# For simple checks, you can use a lambda instead of defining a separate function:
+# @user_passes_test(lambda u: u.is_staff)
+# def add_book(request):
+    # ...
+
+# helper for adding book, staff only
+def is_staff(user):
+    return user.is_staff
+
+# @login_required onlyif we we going to allow anyone to add books
+
+# @permission_required checks whether the user has a specific permission:
+# @permission_required('pages.add_book')
+
+# Redirect to a custom page instead of login
+# @permission_required('pages.add_book', login_url='/no-access/')
+# def add_book(request):
+#     # ...
+
+# # Raise a 403 Forbidden instead of redirecting
+# @permission_required('pages.add_book', raise_exception=True)
+# def add_book(request):
+#     # ...
+
+# order matters
 @login_required
+@user_passes_test(is_staff)
 def add_book(request):
+    # if the user is not staff then they can't add a book
+    # if not request.user.is_staff:
+    #     return HttpResponseForbidden("You don't have permission to add books.")
+    
     # if I didn't put in @login_required
     # I would use the next 2 lines
     # if not request.user.is_authenticated:
     #     return redirect('login')
-    if request.method == 'POST':
+    if request.method == 'POST':        
         form = BookForm(request.POST)
         if form.is_valid():
             book = form.save(commit=False)
