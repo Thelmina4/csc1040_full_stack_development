@@ -1,0 +1,91 @@
+<!-- index.html -->
+
+<html>
+
+<head>
+    <title>Loading JS form a file</title>
+    <!-- External libraries should be loaded first (in the <head>),
+            so that your own code can use them.  -->
+
+    <!-- external js-->
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+    <!-- internal js -->
+    <script src="sayhello.js"></script>
+</head>
+
+<body>
+    <!-- Web page goes here -->
+    <h2>Welcome to the Jungle</h2>
+    <!-- Page-specific inline scripts go at the bottom of the <body>, 
+            after all the HTML content has loaded. -->
+    <p>This page contains broken JavaScript which can only be seen in the console</p>
+    <!-- place script at the closing of the body tag -->
+    <form>
+        <lable for="username">User</lable>
+        <!-- <input requried type="text", name="username" placeholder="your name"/> -->
+        <input  type="text", name="username" placeholder="your name"/>
+        <span id="error-user"></span>
+        <input type="number", name="age" min="0" placeholder="your age"/>
+        <button type="submit">Submit</button>
+
+    </form>
+    <p>P 1</p>
+    <p>P 2</p>
+    <p class="test">test P 1</p>
+    <p class="test">test P 2</p>
+    <p id="myspecialparagraph">P 2 made w id</p>
+    <script>
+        // let allPTags = document.getElementsByTagName("p");
+        let allPTags = document.querySelectorAll("p");
+        console.log(allPTags);
+        // let testPTags = document.getElementsByClassName("test2");
+        let testPTags = document.querySelectorAll(".test");
+        console.log(testPTags);
+        // let singleTag = document.getElementById("myspecialparagraph");
+        let singlePTag = document.querySelectorAll("#myspecialparagraph");
+        console.log(singlePTag);
+        let singleTagText = singlePTag.innerHTML();
+        console.log(singleTagText);
+        singlePTag.innerHTML = "I'm so tired!!!"
+        singlePTag.style.color = "red"
+
+        let myForm = document.querySelector("button");
+        // this is a JS CALLBACK
+        function handleButtonClick(e){
+            // e stands for event. it is jsut a standard to name it that way
+        }
+        myForm.addEventListener('submit', (e)=>{
+            e.preventDefault(); // don't automatically refresh the page
+            console.log("Submitted!");
+
+
+
+
+
+            if(nameInput.value === "mick") {
+                let errorMessageBox = document.createElement("span");
+                errorMessageBox.textContent = "no mick allowed";
+                document.querySelector("form").appendChild(errorMessageBox);
+
+                // or the next way that he did was faster & better
+                document.querySelector
+            }
+        });
+        // don't put in the brackets after the function name
+        // eg the next line
+        // the brackets will call the function once
+        // myButton.addEventListener('submit', handleButtonClick());
+    </script>
+    <script>
+        function sayHello() {
+            console.log("Hello");
+        }
+
+        sayHello(); // Bug! JavaScript is case-sensitive: sayhello ≠ sayHello
+    </script>
+    <script>
+        // [ page secific JS here ]
+    </script>
+</body>
+
+</html>

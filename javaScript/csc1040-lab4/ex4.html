@@ -1,0 +1,44 @@
+<!-- Build a page from scratch that has:
+
+A text <input>
+An Add button
+An empty <ul>
+    
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>All by myself!!! (Sadface)</title>
+    </head>
+    <body>
+        <input type="text" id="inputting">
+        <button id="adding">Add</button>
+
+        <ul id="empty-ul"></ul>
+    </body>
+
+    <script>
+        // 1. When the button is clicked,
+        //  read the value from the input,
+        //  create a new <li> element containing that text,
+        //  and append it to the list
+        
+        // read value from input
+        const input = document.querySelector("#inputting");
+
+        // make variable and addeventlistener for button
+        const button = document.querySelector("#adding");
+        button.addEventListener("click", function() {
+            // here is where I create the li?
+            const li = document.createElement("li");
+            if (input.value.trim()) {
+                li.innerHTML = input.value;
+                document.querySelector("ul").appendChild(li);
+            }
+            // 2. clear the input field after an input
+            input.value = "";       // set it's value to blank
+        }) 
+
+    </script>
+</html>

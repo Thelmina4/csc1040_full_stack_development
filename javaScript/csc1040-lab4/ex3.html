@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Exercise 2.1</title>
+    </head>
+    <body>
+        <h2 id="title">Page Title</h2>
+
+        <p class="info">First Paragraph</p>
+        <p class="info">Second Paragraph</p>
+        <p class="info">Third Paragraph</p>
+
+        <ul id="item-list">
+            <li>Item 1.</li>
+            <li>Item 2</li>
+            <li>item 3</li>
+        </ul>
+
+        <script>
+            // my code here
+            // Using only querySelector and querySelectorAll
+
+            // 1. Changes the <h2> text to your own name
+            const heading = document.querySelector("#title");
+            heading.innerHTML = "Thelma";
+
+            // 2. Selects all three <p> elements and
+            //  loops through them, appending — updated
+            //  to the end of each one's existing text
+
+            // querySelectorAll returns a NodeList.
+            //  Loop through it with for...of, just like an array:
+            const ps = document.querySelectorAll(".info");
+            for (const p of ps) {
+                // p is each matching element in turn
+                const current = p.innerHTML;
+                p.innerHTML = current + " - updated";
+            }
+
+            // 3. Selects all <li> elements inside the <ul>
+            // and logs how many there are to the console
+            const numberli = document.querySelectorAll("#item-list");   // outputs 1
+            console.log("Number of li's: ", numberli.length);
+
+            // need li in the querySelectorAll
+            const listItems = document.querySelectorAll("#item-list li");   // outputs 3
+            console.log("Number of items:", listItems.length);
+            
+            
+
+        </script>
+    </body>
+</html>

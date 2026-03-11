@@ -1,0 +1,106 @@
+<!-- 1. Display a "Loading questions..." message while the request is in progress -->
+<!-- 2. Once the data arrives, replace the loading message with the rendered questions -->
+<!-- 3. For each question, display:
+            The question text
+            All four answers (correct + three incorrect) as an unordered list 
+            — shuffle them so the correct answer is not always in the same position -->
+<!-- 4. If the fetch fails for any reason, replace the loading message with: "Could not load questions. Please try again later." -->
+
+<!-- PART 2  -->
+<!-- Render each answer as a <button> instead of a plain list item -->
+   <!-- When an answer button is clicked:
+If the answer matches correct_answer, insert a "Correct!"
+ message below the question
+If it does not match, insert "Incorrect. The answer was [correct_answer]." below the question -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Open Trivia Database?</title>
+    <!-- Use the Open Trivia Database API to load and display 5 trivia questions. -->
+</head>
+
+<body>
+    <div>
+        <p id="load">Loading questions...</p>
+    </div>
+    <!-- Fetch from this URL when the page loads:
+            https://opentdb.com/api.php?amount=5&type=multiple -->
+    <script>
+        let url = "https://opentdb.com/api.php?amount=5&type=multiple"
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                // render data.results here
+                // 2. Once the data arrives, replace the loading message with the rendered questions
+
+                const load = document.getElementById("load");
+                load.innerHTML = "";
+
+                data.results.forEach(q => {
+                    let win = q.correct_answer;
+
+                    let all = [...q.incorrect_answers, q.correct_answer];
+                    all.sort(() => Math.random() - 0.5);
+
+                    let html = "<p>" + q.question + "</p>";
+
+                    html += "<ul>"
+
+                    all.forEach(a => {
+                        html += "<button>" + a + "</button><br>";
+                    });
+
+                    html += "</ul>";
+                    load.innerHTML += html;
+                });
+            })
+            .catch(error => {
+                // display error message here
+                // "Could not load questions. Please try again later."
+                document.getElementById("load").innerHTML =
+                    "Could not load questions. Please try again later.";
+            });
+    </script>
+</body>
+
+</html>
+<!-- 
+https://opentdb.com/api.php?amount=5&type=multiple
+{"response_code":0,
+"results":[
+    {"type":"multiple",
+    "difficulty":"medium",
+    "category":"History",
+    "question":"The catastrophic nuclear accident that occurred in Ukraine in 1986 occurred at which power plant?",
+    "correct_answer":"Chernobyl",
+    "incorrect_answers":["Ignalina","Mayak","Kursk"]},
+    
+    {"type":"multiple",
+    "difficulty":"hard",
+    "category":"History",
+    "question":"When was Adolf Hitler appointed as Chancellor of Germany?",
+    "correct_answer":"January 30, 1933",
+    "incorrect_answers":["September 1, 1939","February 27, 1933","October 6, 1939"]},
+    
+    {"type":"multiple",
+    "difficulty":"medium",
+    "category":"Science: Gadgets",
+    "question":"Mobile hardware and software company &quot;Blackberry Limited&quot; was founded in which country?",
+    "correct_answer":"Canada",
+    "incorrect_answers":["Norway","United States of America","United Kingdom"]},
+    
+    {"type":"multiple",
+    "difficulty":"medium",
+    "category":"Entertainment: Video Games",
+    "question":"In Need For Speed: Most Wanted (2005), how many people are there to defeat on the blacklist?",
+    "correct_answer":"15",
+    "incorrect_answers":["5","10","20"]},
+    
+    {"type":"multiple",
+    "difficulty":"easy",
+    "category":"Entertainment: Film",
+    "question":"In the 1986 film &quot;The Wraith&quot;, what concept car is used for the Turbo Interceptor?",
+    "correct_answer":"Dodge M4S",
+    "incorrect_answers":["Pontiac Banshee","General Motors Firebird","Dodge Copperhead"]}]} -->

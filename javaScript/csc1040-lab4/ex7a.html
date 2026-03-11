@@ -1,0 +1,127 @@
+
+<!-- PART 2  -->
+<!-- 1. Render each answer as a <button> instead of a plain list item -->
+<!-- 2. When an answer button is clicked:
+        - If the answer matches correct_answer, insert a "Correct!"
+ message below the question
+        - If it does not match, insert "Incorrect. The answer was [correct_answer]." below the question -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Open Trivia Database?</title>
+    <!-- Use the Open Trivia Database API to load and display 5 trivia questions. -->
+</head>
+
+<body>
+    <div>
+        <p id="load">Loading questions...</p>
+    </div>
+    <!-- Fetch from this URL when the page loads:
+            https://opentdb.com/api.php?amount=5&type=multiple -->
+    <script>
+        let url = "https://opentdb.com/api.php?amount=5&type=multiple";
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+
+                let win = 0;
+                const outOf = data.results.length; 
+                console.log(outOf);
+
+                const load = document.getElementById("load");
+                load.innerHTML = "";
+                
+                // Score
+                const scoreDiv = document.createElement("div");
+                const scoreP = document.createElement("p");
+                scoreP.innerHTML = "Score " + win.toString() + " / " + outOf.toString();
+                scoreDiv.appendChild(scoreP);
+
+                load.appendChild(scoreDiv);
+
+                // for each question q
+                data.results.forEach(q => {
+                    // creat the elements for the question
+                    // create container
+                    const questionDiv = document.createElement("div");
+
+                    // question text
+                    const questionText = document.createElement("p");
+                    questionText.innerHTML = q.question;
+                    // add the question to the div
+                    questionDiv.appendChild(questionText);
+
+                    // combine answers
+                    let all = [...q.incorrect_answers, q.correct_answer];
+
+                    // shuffle
+                    all.sort(() => Math.random() - 0.5);
+
+                    // result message to go under the q
+                    const result = document.createElement("p");
+
+                    // for each answer do
+                    all.forEach(a => {
+
+                        const btn = document.createElement("button");
+                        // btn.disabled = true;
+                        btn.innerHTML = a;
+
+                        btn.addEventListener("click", function () {
+
+                            if (result.innerHTML !== "") return;
+
+                            if (a === q.correct_answer) {
+                                result.innerHTML = "Correct!";
+                                win += 1;
+
+                                // update the score here
+                                scoreP.innerHTML = "Score " + win.toString() + " / " + outOf.toString();
+
+                            } else {
+                                result.innerHTML =
+                                    "Incorrect. The answer was " + q.correct_answer + ".";
+                            }
+                            btn.disabled = true;
+                        });
+
+                        questionDiv.appendChild(btn);
+                        questionDiv.appendChild(document.createElement("br"));
+
+                    });
+   
+                    questionDiv.appendChild(result);
+                    load.appendChild(questionDiv);
+
+                });
+
+            })
+            .catch(error => {
+
+                document.getElementById("load").innerHTML =
+                    "Could not load questions. Please try again later.";
+
+            });
+    </script>
+</body>
+
+</html>
+<!-- 
+https://opentdb.com/api.php?amount=5&type=multiple
+{"response_code":0,
+"results":[
+    {"type":"multiple",
+    "difficulty":"medium",
+    "category":"History",
+    "question":"The catastrophic nuclear accident that occurred in Ukraine in 1986 occurred at which power plant?",
+    "correct_answer":"Chernobyl",
+    "incorrect_answers":["Ignalina","Mayak","Kursk"]},
+    
+    {"type":"multiple",
+    "difficulty":"easy",
+    "category":"Entertainment: Film",
+    "question":"In the 1986 film &quot;The Wraith&quot;, what concept car is used for the Turbo Interceptor?",
+    "correct_answer":"Dodge M4S",
+    "incorrect_answers":["Pontiac Banshee","General Motors Firebird","Dodge Copperhead"]}]} -->

@@ -1,0 +1,98 @@
+<!--    1. Use event.preventDefault() on the form's submit event to prevent the page from reloading
+        2. If a field fails validation, display an error message directly below that field in the page — do not use alert()
+        3. If all fields pass, clear any existing error messages and display a confirmation paragraph on the page: "Registration successful for [name], aged [age]."
+        4. The confirmation must appear as a new element on the page, not as an alert -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration Form</title>
+</head>
+<body>
+    <div>
+        <form>
+            <!-- name -->
+            <label id="">Name</label>
+            <!-- name must not be empty -->
+            <input type="text" id="name"><br>   
+            <span id="name-error"></span>
+            <br>
+            <!-- age -->
+            <label id="">Age</label>
+            <!-- age must not be empty, integer, 18 < x > 120 -->
+            <input type="number" id="age"><br>
+            <span id="age-error"></span>
+            <br>
+            <!-- Email -->
+            <label id="">Email</label>
+            <!-- age must not be empty, must contain @ -->
+            <input type="text" id="email"><br>
+            <span id="email-error"></span>
+            <br>
+            <input type="submit" value="Submit" id="submit"></button> 
+        </form>
+    </div>
+    <script>
+        const name = document.querySelector("#name");
+        const name_error = document.querySelector("#name-error");
+
+        const age = document.querySelector("#age");
+        const age_error = document.querySelector("#age-error");
+        
+        const email = document.querySelector("#email");
+        const email_error = document.querySelector("#email-error");
+
+        const form = document.querySelector("form");
+        
+        form.addEventListener("submit", clickSubmit);
+
+        function clickSubmit(event) {
+            event.preventDefault();
+
+            // clear errors
+            name_error.innerHTML = "";
+            age_error.innerHTML = "";
+            email_error.innerHTML = "";
+
+
+            let valid = true;
+
+            // check for valid inputs
+            // name
+            if (name.value === "") {
+                name_error.innerHTML = "Name is required";
+                valid = false;
+            }
+            // age
+            // name
+            const val = parseInt(age.value);
+
+            if (age.value === "") {
+                age_error.innerHTML = "Age is required";
+                valid = false;
+            } else if (isNaN(val)) {
+                age_error.innerHTML = "Age Must be a Whole Number."
+                valid = false;
+            } else if (!(18 < val || val > 120)) {
+                age_error.innerHTML = "Age must be btween 18 and 120"
+                valid = false;
+            }
+            // email
+            if (email.value === "") {
+                email_error.innerHTML = "Email is required";
+                valid = false;
+            } else if (!email.value.includes("@")) {
+                email_error.innerHTML = "Not a valid email"
+                valid = false;
+            }
+
+            // success
+            if (valid) {
+                const p = document.createElement("p");
+                p.innerHTML = "Registration successful for " + name.value + ", aged " + age.value +".";
+                document.body.appendChild(p);
+            }
+        }
+
+    </script>
+</body>
+</html>

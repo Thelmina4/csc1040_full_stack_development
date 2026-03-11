@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>DOM Manipulation Example</title>
+    </head>
+    <body>
+        <h1 id="main-heading">Original heading</h1>
+        <input type="text" id="name-input" placeholder="Enter a name">
+        <button id="greet-btn">Greetings master</button>
+        <p id="output"></p>
+
+        <script>
+            // 1. select elements by their ID
+            const heading   = document.querySelector("#main-heading");
+            const input     = document.querySelector("#name-input");
+            const button    = document.querySelector("#greet-btn");
+            const output    = document.querySelector("#output");
+
+            // Modify an element immediately when the page loads
+            heading.innerHTML = "Hello from your master";
+
+            // 3. respond to a button click
+            button.addEventListener("click", function () {
+                const name = input.value;
+                output.innerHTML = "Hello, " + name + "!";
+            })
+        </script>
+    </body>
+</html>
