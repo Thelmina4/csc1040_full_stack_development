@@ -1,0 +1,69 @@
+<!-- Persistent List:
+
+Every time an item is added, save the full list to localStorage as a JSON array of strings
+When the page loads, read the saved array from localStorage and render any existing items into the <ul> before the user does anything
+Add a Clear List button that empties the <ul>, removes the entry from localStorage, and is only visible when the list has at least one item
+    
+-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Persistent List</title>
+</head>
+
+<body>
+    <input type="text" id="inputting">
+    <button id="saveBtn">Add</button>
+    <button id="clrBtn" style="display:none;">Clear</button>
+
+    <ul id="empty-ul"></ul>
+<script>
+    // 1. When the button is clicked,
+    //  read the value from the input,
+    //  create a new <li> element containing that text,
+    //  and append it to the list
+
+    // read value from input
+    const input = document.querySelector("#inputting");
+
+    // make variable and addeventlistener for button
+    const saveBtn = document.querySelector("#saveBtn");
+    const clrBtn = document.querySelector("#clrBtn");
+    const ul = document.querySelector("#empty-ul");
+
+    let items = JSON.parse(localStorage.getItem("list")) || [];
+
+    function render() {
+        const ul = document.querySelector("#empty-ul");
+        ul.innerHTML = "";
+        for (const text of items) {
+            const li = document.createElement("li");
+            li.innerHTML = text;
+            ul.appendChild(li);
+        }
+        clrBtn.style.display = items.length ? "inline": "none";
+    }
+    render(); // restore on load
+
+    saveBtn.addEventListener("click", function() {
+        const value = input.value.trim();
+        if (!value) return;
+        items.push(value);
+        localStorage.setItem("list", JSON.stringify(items));
+        render();
+        input.value = "";
+    });
+
+    clrBtn.addEventListener("click", function () {
+        items = [];
+            
+        localStorage.removeItem("list");
+        render();
+
+    });
+</script>
+</body>
+
+</html>

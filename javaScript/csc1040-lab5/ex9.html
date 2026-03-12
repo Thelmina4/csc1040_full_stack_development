@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head><title> Loading on Demand</title></head>
+    <body>
+        <!-- place holder for future work -->
+        <button id="btn">Load Post</button>
+
+        <div id="post-area"></div>
+
+        <script>
+            let baseurl = "https://jsonplaceholder.typicode.com/posts/"
+            const btn = document.getElementById("btn")
+
+            btn.addEventListener("click", loadPost);
+
+            async function loadPost() {
+                
+                const load = document.getElementById("post-area");
+
+                try {
+                    // Button disabling should happen BEFORE fetch
+                    btn.disabled = true;
+                    btn.innerHTML = "Loading...";
+
+                    const id = Math.floor(Math.random() * 100) + 1;
+                    const url = baseurl + id;
+                    console.log(id);
+                    console.log(url);
+
+                    const postRes = await fetch(url);
+                    const postData = await postRes.json();
+                    
+                    load.innerHTML = "";
+
+                    const titleH3 = document.createElement("h3");
+                    titleH3.innerHTML = postData.title;
+
+                    const bodyP = document.createElement("p");
+                    bodyP.innerHTML = postData.body;
+
+                    load.append(titleH3);
+                    load.append(bodyP);
+
+                } catch (error) {
+                    load.innerHTML = 
+                        "Could not load Post. Please try again";
+                    console.log(error);
+                } finally {
+                    btn.disabled = false;
+                    btn.innerHTML = "Load Post" 
+                }
+            }
+        </script>
+    </body>
+</html>

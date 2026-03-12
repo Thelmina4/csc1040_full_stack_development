@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html>
+    <head><title>Remembering a Username</title></head>
+    <body>
+        <!-- placeholder for work to be done -->
+         <div>
+            <input type="text" id="username">
+            <button id="saveBtn">Save</button>
+            <button id="clrBtn">Clear</button>
+            <p id="greeting">Greetings earthling</p>
+         </div>
+
+        <script>
+            // create the variables for the elements on the page
+            const input = document.getElementById("username");
+            const saveBtn = document.getElementById("saveBtn");
+            const clrBtn = document.getElementById("clrBtn");
+            const greeting = document.getElementById("greeting");
+
+            // check if there is a usr in the input box
+            const saved = localStorage.getItem("username");
+
+            // if there is one saved then
+            if (saved) {
+                input.value = saved;
+                greeting.innerHTML = "Welcome back, " + saved + "!";
+            }
+
+            saveBtn.addEventListener("click", function() {
+                const name = input.value;
+                if (name === "") return;
+                localStorage.setItem("username", name);
+                greeting.innerHTML = "Welcome back, " + name + "!";
+            });
+            // Clear username
+            clrBtn.addEventListener("click", function () {
+
+                localStorage.removeItem("username");
+
+                input.value = "";
+                greeting.innerHTML = "";
+
+            });
+
+        </script>
+    </body>
+</html>

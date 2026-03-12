@@ -1,0 +1,73 @@
+<!-- ex12.html -->
+<!-- Build a page with some placeholder content
+  (a heading, a couple of paragraphs) 
+  and a Toggle Theme button. -->
+<!DOCTYPE html>
+
+<html>
+<head><title>Theme Switcher</title>
+<style>
+    body.light { background: #ffffff; color: #111111; }
+    body.dark  { background: #1a1a2e; color: #e0e0e0; }
+</style>
+</head>
+<body>
+    <!-- p[lace holder for heading, paragraphs and a toggle theme btn -->
+    <h1>heading</h1>
+    <p>p1</p>
+    <p>p2</p>
+    <p>p3</p>
+    <button id="togglebtn">Toggle Theme</button>
+
+    <script>
+        const button = document.getElementById("togglebtn");
+
+        // load the saved theme
+        // if there is no theme then use light and add light to theme
+        const theme = localStorage.getItem("theme") || "light";
+        document.body.classList.add(theme);
+
+        // update the button label;
+        updateButton();
+        console.log(theme);
+
+        // document.body.classList.add("light");
+        // document.body.classList.add("dark");
+        
+        // need to initialise it to something
+        // then create the toggles
+        // button.addEventListener("click", function() {
+        
+        // });
+        button.addEventListener("click", function(){
+            if (document.body.classList.contains("light")) {
+                // document.body.classList.toggle("light");
+                document.body.classList.remove("light");
+                document.body.classList.add("dark");
+                
+                localStorage.setItem("theme", "dark");
+            } else {
+                // document.body.classList.toggle("light");
+                document.body.classList.remove("dark");
+                document.body.classList.add("light");
+
+                localStorage.setItem("theme", "light");
+            }
+            updateButton();
+        });
+        function updateButton() {
+            
+            if (document.body.classList.contains("light")) {
+                button.innerHTML = "Switch to Dark";                
+            } else {
+                button.innerHTML = "Switch to Light";
+            }
+        }
+
+
+    </script>
+
+</body>
+</html>
+
+
